@@ -1,4 +1,5 @@
 :root {
+  --nav-height: 3.75rem;
   --background: #181C14;
   --surface: #3C3D37;
   --text: #ECDFCC;
@@ -25,19 +26,53 @@ body {
   margin-inline: auto;
 }
 
-.hero {
-  padding: 2rem 0 clamp(3rem, 9vw, 6rem);
+.site-nav {
+  position: sticky;
+  top: 0;
+  z-index: 1;
   border-bottom: 1px solid var(--sage);
-  background: radial-gradient(ellipse at 82% 25%, #3C3D37, transparent 66%),
-    linear-gradient(130deg, #3C3D37, var(--background));
+  background: var(--background);
+}
+
+.nav-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  min-height: var(--nav-height);
+}
+
+.brand,
+.nav-link {
+  font-weight: 800;
+  text-decoration: none;
 }
 
 .brand {
-  margin: 0 0 clamp(2rem, 7vw, 4rem);
-  color: var(--accent);
-  font-size: 40px;
-  font-weight: 800;
   color: burlywood;
+  font-size: 1.5rem;
+}
+
+.nav-link {
+  color: var(--text);
+  padding: 0.5rem 0.75rem;
+}
+
+.nav-link:hover {
+  color: burlywood;
+  text-decoration: underline;
+}
+
+#top,
+#main {
+  scroll-margin-top: calc(var(--nav-height) + 1px);
+}
+
+.hero {
+  padding: clamp(3rem, 8vw, 6rem) 0;
+  border-bottom: 1px solid var(--sage);
+  background: radial-gradient(ellipse at 82% 25%, #3C3D37, transparent 66%),
+    linear-gradient(130deg, #3C3D37, var(--background));
 }
 
 h1 {
@@ -213,10 +248,32 @@ footer summary {
   cursor: pointer;
 }
 
+.back-to-top {
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 2;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: 1px solid var(--background);
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--background);
+  box-shadow: 0 2px 10px #0006;
+  font: 700 1.5rem/1 system-ui, sans-serif;
+  cursor: pointer;
+}
+
+.back-to-top:hover {
+  background: burlywood;
+}
+
 .skip-link {
   position: absolute;
   top: 0.5rem;
   left: 0.5rem;
+  z-index: 3;
   transform: translateY(-200%);
   padding: 0.5rem 0.75rem;
   background: var(--text);

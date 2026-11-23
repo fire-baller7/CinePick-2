@@ -193,3 +193,20 @@ function showMovies() {
 search.addEventListener('input', showMovies)
 genreSelect.addEventListener('change', showMovies)
 showMovies()
+
+const backToTop = document.querySelector('.back-to-top')
+const homeLink = document.querySelector('.site-nav .brand')
+
+function updateBackToTop() {
+  backToTop.hidden = window.scrollY <= 0
+}
+
+window.addEventListener('scroll', updateBackToTop, { passive: true })
+updateBackToTop()
+
+backToTop.addEventListener('click', () => {
+  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
+  homeLink.focus({ preventScroll: true })
+  window.scrollTo({ top: 0, behavior: reducedMotion ? 'instant' : 'smooth' })
+})
