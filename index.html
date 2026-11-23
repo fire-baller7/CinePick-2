@@ -15,7 +15,14 @@
   <nav class="site-nav" aria-label="Main navigation">
     <div class="container nav-inner">
       <a class="brand" href="#top">CinePick</a>
-      <a class="nav-link" href="#main">Movies</a>
+      <div class="controls" role="search" aria-label="Movie collection">
+        <label class="visually-hidden" for="search">Search by title</label>
+        <input id="search" type="search" placeholder="Search by title">
+        <label class="visually-hidden" for="genre">Genre</label>
+        <select id="genre">
+          <option value="">All genres</option>
+        </select>
+      </div>
     </div>
   </nav>
 
@@ -30,19 +37,6 @@
   <main class="container" id="main" tabindex="-1">
     <section aria-labelledby="collection-title">
       <h2 id="collection-title">Movie collection</h2>
-
-      <div class="controls">
-        <div class="field">
-          <label for="search">Search by title</label>
-          <input id="search" type="search" placeholder="Try Inception">
-        </div>
-        <div class="field">
-          <label for="genre">Genre</label>
-          <select id="genre">
-            <option value="">All genres</option>
-          </select>
-        </div>
-      </div>
 
       <p class="status" id="status" role="status"></p>
       <ul class="movie-grid" id="movie-list"></ul>

@@ -35,32 +35,20 @@ body {
 }
 
 .nav-inner {
-  display: flex;
+  display: grid;
+  grid-template-columns: auto minmax(0, 28rem);
   align-items: center;
   justify-content: space-between;
   gap: 1rem;
   min-height: var(--nav-height);
 }
 
-.brand,
-.nav-link {
-  font-weight: 800;
-  text-decoration: none;
-}
-
 .brand {
+  justify-self: start;
   color: burlywood;
   font-size: 1.5rem;
-}
-
-.nav-link {
-  color: var(--text);
-  padding: 0.5rem 0.75rem;
-}
-
-.nav-link:hover {
-  color: burlywood;
-  text-decoration: underline;
+  font-weight: 800;
+  text-decoration: none;
 }
 
 #top,
@@ -118,17 +106,19 @@ h2 {
 
 .controls {
   display: grid;
-  grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-  gap: 1rem;
+  grid-template-columns: minmax(0, 1fr) minmax(7.25rem, auto);
+  gap: 0.5rem;
 }
 
-.field {
-  display: grid;
-  gap: 0.35rem;
-}
-
-label {
-  font-weight: 650;
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
 }
 
 input,
@@ -290,8 +280,14 @@ footer summary {
 }
 
 @media (max-width: 34rem) {
-  .controls {
-    grid-template-columns: 1fr;
+  :root {
+    --nav-height: 6.5rem;
+  }
+
+  .nav-inner {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    gap: 0.35rem;
   }
 
   .hero-break {
