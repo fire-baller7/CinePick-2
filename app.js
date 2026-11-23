@@ -124,6 +124,7 @@ const genreColours = {
 
 const search = document.querySelector('#search')
 const genreSelect = document.querySelector('#genre')
+const hero = document.querySelector('.hero')
 const statusLine = document.querySelector('#status')
 const movieList = document.querySelector('#movie-list')
 const movieTemplate = document.querySelector('#movie-template')
@@ -172,6 +173,8 @@ function makeMovieCard(movie) {
 function showMovies() {
   const query = search.value.trim().toLowerCase()
   const selectedGenre = genreSelect.value
+
+  hero.hidden = query !== '' || selectedGenre !== ''
 
   const matches = movies.filter(movie => {
     const matchesTitle = movie.title.toLowerCase().includes(query)

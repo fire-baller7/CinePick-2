@@ -51,7 +51,6 @@ body {
   text-decoration: none;
 }
 
-#top,
 #main {
   scroll-margin-top: calc(var(--nav-height) + 1px);
 }
