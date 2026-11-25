@@ -3,188 +3,128 @@
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Find your next movie by title or genre.">
-
   <title>CinePick | Movie Recommendations</title>
-
-  <link rel="icon" href="data:,">
+  <link rel="icon"
+    href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23181C14'/%3E%3Cpath d='M24 17L48 32L24 47Z' fill='%23DEB887'/%3E%3C/svg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
   <script src="app.js" defer></script>
 </head>
 
 <body id="top">
+  <a class="skip-link" href="#main">Skip to the movie collection</a>
 
-  <!-- Accessibility -->
-  <a class="skip-link" href="#main">
-    Skip to the movie collection
-  </a>
-
-  <!-- Website Header -->
-  <header class="site-header">
-
-    <nav class="site-nav" aria-label="Main navigation">
-      <div class="container nav-inner">
-
-        <a class="brand" href="#top">CinePick</a>
-
-        <!-- Movie Search and Filter -->
-        <div class="controls" role="search" aria-label="Movie collection">
-
-          <label class="visually-hidden" for="search">
-            Search by title
-          </label>
-          <input
-            id="search"
-            type="search"
-            placeholder="Search by title"
-          >
-
-          <label class="visually-hidden" for="genre">
-            Select movie genre
-          </label>
-          <select id="genre">
-            <option value="">All genres</option>
-          </select>
-
-        </div>
-
+  <nav class="site-nav" aria-label="Main navigation">
+    <div class="container nav-inner">
+      <a class="brand" href="#top">CinePick</a>
+      <div class="controls" role="search" aria-label="Movie collection">
+        <label class="visually-hidden" for="search">Search by title</label>
+        <input id="search" type="search" placeholder="Search by title">
+        <label class="visually-hidden" for="genre">Select movie genre</label>
+        <select id="genre">
+          <option value="">All genres</option>
+        </select>
       </div>
-    </nav>
-
-    <!-- Hero Section -->
+    </div>
+  </nav>
+  <header class="site-header">
     <section class="hero" aria-labelledby="hero-title">
-      <div class="container">
-
-        <h1 id="hero-title">
-          Find your next<br class="hero-break"> favourite movie.
-        </h1>
-
-        <p class="intro">
-          Browse a short list of movie picks by title or genre.
-        </p>
-
-        <a class="browse-link" href="#main">
-          Browse movies
-          <span aria-hidden="true">↓</span>
-        </a>
-
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <p class="eyebrow">YOUR NEXT GREAT WATCH</p>
+          <h1 id="hero-title">Find your next<br class="hero-break"> favourite movie.</h1>
+          <p class="intro">Discover something worth watching.</p>
+          <div class="hero-buttons">
+            <a class="browse-link" href="#main">Browse movies ↓</a>
+            <button class="surprise-btn" id="surprise" type="button">Surprise me</button>
+          </div>
+        </div>
+        <div class="featured-movie">
+          <img id="featured-poster" alt="" hidden>
+          <p class="eyebrow">FEATURED PICK</p>
+          <h2 id="featured-title"></h2>
+          <p id="featured-meta"></p>
+        </div>
       </div>
     </section>
-
   </header>
-
-  <!-- Main Website Content -->
   <main class="container" id="main" tabindex="-1">
-
-    <!-- Movie Collection -->
     <section aria-labelledby="collection-title">
-
       <h2 id="collection-title">Movie collection</h2>
-
-      <p class="status" id="status" role="status"></p>
-
+      <div class="collection-toolbar">
+        <p class="status" id="status" role="status"></p>
+        <label class="visually-hidden" for="sort">Sort movies</label>
+        <select id="sort">
+          <option value="default">Default order</option>
+          <option value="newest">Newest first</option>
+          <option value="oldest">Oldest first</option>
+          <option value="alphabetical">A–Z</option>
+        </select>
+        <button id="clear-filters" type="button">Clear filters</button>
+        <button id="watchlist-btn" type="button" aria-pressed="false">My watchlist (0)</button>
+      </div>
       <ul class="movie-grid" id="movie-list"></ul>
 
       <noscript>
-        <p>
-          Turn on JavaScript to browse the movie collection.
-        </p>
+        <p>Turn on JavaScript to browse the movie collection.</p>
       </noscript>
-
     </section>
-
   </main>
 
-  <!-- Movie Card Template -->
   <template id="movie-template">
-
     <li class="movie-card">
-
       <article class="movie-article">
-
         <div class="movie-art" aria-hidden="true">
           <span class="poster-fallback"></span>
-
-          <img
-            class="movie-poster"
-            alt=""
-            loading="lazy"
-            decoding="async"
-            hidden
-          >
+          <img class="movie-poster" alt="" loading="lazy" decoding="async" hidden>
         </div>
 
         <div class="movie-info">
-
           <p class="movie-meta"></p>
-
-          <h3 class="movie-title"></h3>
-
+          <div class="movie-title-row">
+            <h3 class="movie-title"></h3>
+            <button class="save-btn" type="button" aria-label="Save movie" aria-pressed="false">♡</button>
+          </div>
           <p class="movie-description"></p>
-
-          <a
-            class="watch-link"
-            target="_blank"
-            rel="noopener noreferrer"
-            hidden
-          >
-            Where to watch
-            <span aria-hidden="true">↗</span>
+          <a class="watch-link" target="_blank" rel="noopener noreferrer" hidden>
+            Where to watch <span aria-hidden="true">↗</span>
           </a>
-
         </div>
-
       </article>
-
     </li>
-
   </template>
 
-  <!-- Website Footer -->
   <footer class="container">
-
     <p>CinePick · Trailblazer AI Product Studio</p>
-
-    <!-- Movie Poster Credits -->
-    <section aria-label="Movie poster sources">
-
-      <details>
-
-        <summary>Poster sources</summary>
-
-        <ul>
-          <li><a href="https://artofthemovies.co.uk/products/inception-2010-ds-os-02">Inception</a></li>
-          <li><a href="https://www.themoviedb.org/movie/155-the-dark-knight/images/posters">The Dark Knight</a></li>
-          <li><a href="https://www.the-numbers.com/movie/Get-Out-%282017%29">Get Out</a></li>
-          <li><a href="https://www.movieposters.com/products/interstellar-mpw-134736">Interstellar</a></li>
-          <li><a href="https://www.themoviedb.org/movie/120467-the-grand-budapest-hotel/images/posters">The Grand Budapest Hotel</a></li>
-          <li><a href="https://www.impawards.com/2018/black_panther.html">Black Panther</a></li>
-          <li><a href="https://www.impawards.com/intl/australia/2015/mad_max_fury_road_ver7_xxlg.html">Mad Max: Fury Road</a></li>
-          <li><a href="https://www.themoviedb.org/movie/245891-john-wick/images/posters">John Wick</a></li>
-          <li><a href="https://www.originalfilmart.com/es-cl/products/school-of-rock-2003-adv">School of Rock</a></li>
-          <li><a href="https://www.imdb.com/title/tt2704998/mediaviewer/rm3193001472/">Game Night</a></li>
-          <li><a href="https://www.imdb.com/title/tt6644200/mediaviewer/rm2864925184">A Quiet Place</a></li>
-          <li><a href="https://www.ebay.com/itm/326168863247">The Conjuring</a></li>
-          <li><a href="https://medium.com/watch-more/%D0%BF%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%82%D1%8F-arrival-d69a23e38eb4">Arrival</a></li>
-          <li><a href="https://www.imdb.com/title/tt0133093/mediaviewer/rm525547776/">The Matrix</a></li>
-        </ul>
-
-      </details>
-
-    </section>
-
+    <details>
+      <summary>Poster sources</summary>
+      <ul>
+        <li><a href="https://artofthemovies.co.uk/products/inception-2010-ds-os-02">Inception</a></li>
+        <li><a href="https://www.themoviedb.org/movie/155-the-dark-knight/images/posters">The Dark Knight</a></li>
+        <li><a href="https://www.the-numbers.com/movie/Get-Out-%282017%29">Get Out</a></li>
+        <li><a href="https://www.movieposters.com/products/interstellar-mpw-134736">Interstellar</a></li>
+        <li><a href="https://www.themoviedb.org/movie/120467-the-grand-budapest-hotel/images/posters">The Grand Budapest
+            Hotel</a></li>
+        <li><a href="https://www.impawards.com/2018/black_panther.html">Black Panther</a></li>
+        <li><a href="https://www.impawards.com/intl/australia/2015/mad_max_fury_road_ver7_xxlg.html">Mad Max: Fury
+            Road</a></li>
+        <li><a href="https://www.themoviedb.org/movie/245891-john-wick/images/posters">John Wick</a></li>
+        <li><a href="https://www.originalfilmart.com/es-cl/products/school-of-rock-2003-adv">School of Rock</a></li>
+        <li><a href="https://www.imdb.com/title/tt2704998/mediaviewer/rm3193001472/">Game Night</a></li>
+        <li><a href="https://www.imdb.com/title/tt6644200/mediaviewer/rm2864925184">A Quiet Place</a></li>
+        <li><a href="https://www.ebay.com/itm/326168863247">The Conjuring</a></li>
+        <li><a
+            href="https://medium.com/watch-more/%D0%BF%D1%80%D0%B8%D0%B1%D1%83%D1%82%D1%82%D1%8F-arrival-d69a23e38eb4">Arrival</a>
+        </li>
+        <li><a href="https://www.imdb.com/title/tt0133093/mediaviewer/rm525547776/">The Matrix</a></li>
+      </ul>
+    </details>
   </footer>
-
-  <!-- Back to Top Button -->
-  <button
-    class="back-to-top"
-    type="button"
-    aria-label="Back to top"
-    hidden
-  >
-    &uarr;
-  </button>
-
+  <button class="back-to-top" type="button" aria-label="Back to top" hidden>↑</button>
 </body>
+
 </html>
